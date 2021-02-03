@@ -7,5 +7,19 @@
 <body>
     <h1>Página Principal</h1>
     <p>{{ verifica_logado }}</p>
+    <table>
+        <thead>
+            <th>Produto</th>
+            <th>Preço</th>
+        </thead>
+        <tbody>
+        {%for produto in produtos%}
+            <tr>
+                <td>{{produto.nome}}</td>
+                <td>{{produto.preco}}</td>
+            </tr>
+        {%endfor%}
+        </tbody>
+    </table>
 </body>
 </html>
