@@ -10,6 +10,7 @@ media
 *.bak
 
 # If you are using PyCharm #
+.idea
 .idea/**/workspace.xml
 .idea/**/tasks.xml
 .idea/dictionaries
@@ -96,6 +97,7 @@ venv.bak/
 *.stTheme.cache
 *.sublime-workspace
 *.sublime-project
+*.*~
 
 # sftp configuration file
 sftp-config.json
