@@ -3,6 +3,8 @@ from main.models import Cliente, Produto
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from django.template import loader
+from .forms import ContatoForms
+from django.contrib import messages
 
 
 def index(request):
@@ -21,7 +23,27 @@ def index(request):
 
 
 def contato(request):
-    return render(request, 'contato.html')
+    form = ContatoForms(request.POST or None)
+
+    if str(request.method) == "POST":
+        if form.is_valid():
+            nome = form.cleaned_data['nome']
+            email = form.cleaned_data['email']
+            assunto = form.cleaned_data['assunto']
+
+            print('Mensagem enviada')
+            print(f'Nome: {nome}')
+            print(f'Email: {email}')
+            print(f'Assunto: {assunto}')
+            messages.success(request, 'E-mail enviado com sucesso')
+            form = ContatoForms()
+        else:
+            messages.error(request, 'Ocorreu um erro ao enviar o e-mail')
+
+    context = {
+        'form': form
+    }
+    return render(request, 'contato.html', context)
 
 
 def produto(request, pk):

@@ -1,10 +1,11 @@
-{% load static %}
+{%load static%}
+{%load bootstrap4 %}
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <title>Index-Django</title>
-    <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+    {% bootstrap_css %}
     <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
 </head>
 <body>
@@ -31,6 +32,6 @@
     <div class="container" align="left">
         <h4>Usuario: {{ verifica_logado }}</h4>
     </div>
-    <script src="{% static 'bootstrap.min.js' %}"></scriptsrc>
+    {% bootstrap_javascript jquery='full' %}
 </body>
 </html>

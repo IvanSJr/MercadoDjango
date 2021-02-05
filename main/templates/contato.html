@@ -1,10 +1,25 @@
+{%load static%}
+{%load bootstrap4 %}
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <title>Contato</title>
+    {% bootstrap_css %}
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
 </head>
 <body>
-    <h1>Contato</h1>
+    <div class="container mt-4">
+        <h1>Contato</h1>
+        {% bootstrap_messages %}
+        <form action="{% url 'contato' %}" method="post" class="form" autocomplete="off">
+            {% csrf_token %}
+            {% bootstrap_form form%}
+            {% buttons %}
+                <button type="submit" class="btn btn-success">Enviar Mensagem</button>
+            {% endbuttons%}
+        </form>
+    </div>
+    {% bootstrap_javascript jquery='full' %}
 </body>
 </html>
