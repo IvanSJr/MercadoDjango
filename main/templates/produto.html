@@ -1,28 +1,33 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Produto</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <title>Produtos</title>
+    <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
 </head>
 <body>
-    <h1>Produto</h1>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Produto</th>
-                <th>Preço</th>
-                <th>Estoque</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>{{produto.nome}}</td>
-                <td>{{produto.preco}}</td>
-                <td>{{produto.estoque}}</td>
-            </tr>
-        </tbody>
-    </table>
-    <a href="{% url 'index'%}">Retornar para pagina principal</a>
+    <h1 align="center">Produtos</h1>
+    <div class="container-fluid mt-4">
+        <table class="table table-dark">
+            <thead>
+                <tr>
+                    <th>Produto</th>
+                    <th>Preço</th>
+                    <th>Estoque</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{produto.nome}}</td>
+                    <td>{{produto.preco}}</td>
+                    <td>{{produto.estoque}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <a class="btn btn-info" href="{% url 'index'%}">Retornar para pagina principal</a>
+    <script src="{% static 'bootstrap.min.js' %}"></scriptsrc>
 </body>
 </html>
