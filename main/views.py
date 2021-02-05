@@ -48,6 +48,10 @@ def produto(request, pk):
     return render(request, 'produto.html', context)
 
 
+def cadastro(request):
+    return render(request, 'cadastro.html')
+
+
 def error404(request, exception):
     template = loader.get_template('404.html')
     return HttpResponse(content=template.render(), content_type='text/html; charset=utf8', status=404)
