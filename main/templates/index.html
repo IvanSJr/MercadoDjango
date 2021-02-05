@@ -10,8 +10,7 @@
 <body>
     {% csrf_token %}
     <h1 align="center">Produtos</h1>
-    <h4>Usuario: {{ verifica_logado }}</h4>
-    <div class="container-fluid">
+   <div class="container-fluid mt-4">
         <table class="table table-dark">
             <thead>
                 <th scope="col">#</th>
@@ -28,6 +27,9 @@
             {%endfor%}
             </tbody>
         </table>
+    </div>
+    <div class="container" align="left">
+        <h4>Usuario: {{ verifica_logado }}</h4>
     </div>
     <script src="{% static 'bootstrap.min.js' %}"></scriptsrc>
 </body>
