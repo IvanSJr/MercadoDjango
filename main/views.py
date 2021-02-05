@@ -4,14 +4,13 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from django.template import loader
 
-
 def index(request):
     produto = Produto.objects.all()
 
     if str(request.user) == 'AnonymousUser':
-        usuario = 'Anônimo'
+        usuario = 'Usuário Anônimo'
     else:
-        usuario = f'{str(request.user.first_name)} {str(request.user.last_name)} logado'
+        usuario = f'{request.user.first_name} Logado'
     context = {
         'curso': 'Programação web com Django-Framework',
         'verifica_logado': usuario,
