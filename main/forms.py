@@ -1,5 +1,6 @@
 from django import forms
 from django.core.mail.message import EmailMessage
+from .models import Cliente
 
 
 class ContatoForms(forms.Form):
@@ -24,3 +25,9 @@ class ContatoForms(forms.Form):
             headers={'Reply-to': email}
         )
         mail.send()
+
+
+class ClienteModelForms(forms.ModelForm):
+    class Meta:
+        model = Cliente
+        fields = ['nome', 'sobrenome', 'email']

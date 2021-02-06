@@ -24,8 +24,18 @@
       </div>
     </nav>
     <div class="container mt-4 ">
-        <h1>Página de cadastro</h1>
     </div>
+        <div class="container mt-4">
+            <h1>Formulário para cadastro de clientes</h1>
+            {% bootstrap_messages %}
+            <form action="{% url 'cadastro' %}" method="post" class="form mt-3" autocomplete="off">
+                {% csrf_token %}
+                {% bootstrap_form form%}
+                {% buttons %}
+                    <button type="submit" class="btn btn-success">Cadastrar</button>
+                {% endbuttons%}
+            </form>
+        </div>
 
 
 {% bootstrap_javascript jquery='full' %}
