@@ -15,7 +15,6 @@ def index(request):
     else:
         usuario = f'{str(request.user.first_name)} {str(request.user.last_name)} logado'
     context = {
-        'curso': 'Programação web com Django-Framework',
         'verifica_logado': usuario,
         'produtos': produto
     }
@@ -63,6 +62,19 @@ def cadastro(request):
         'form': form
     }
     return render(request, 'cadastro.html', context)
+
+
+def cliente(request):
+    cliente = Cliente.objects.all()
+    if str(request.user) == 'AnonymousUser':
+        usuario = 'Anônimo'
+    else:
+        usuario = f'{str(request.user.first_name)} {str(request.user.last_name)} logado'
+    context = {
+        'verifica_logado': usuario,
+        'clientes': cliente
+    }
+    return render(request, 'cliente.html', context)
 
 
 def error404(request, exception):
