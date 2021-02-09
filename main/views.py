@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from main.models import Cliente, Produto
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.http import HttpResponse
 from django.template import loader
 from .forms import ContatoForms, ClienteModelForms
@@ -22,20 +22,22 @@ def index(request):
 
 
 def contato(request):
-    form = ContatoForms(request.POST or None)
+    if str(request.user) != 'AnonymousUser':
+        form = ContatoForms(request.POST or None)
+        if str(request.method) == "POST":
+            if form.is_valid():
+                form.enviar_email()
+                messages.success(request, 'E-mail enviado com sucesso')
+                form = ContatoForms()
+            else:
+                messages.error(request, 'Ocorreu um erro ao enviar o e-mail')
 
-    if str(request.method) == "POST":
-        if form.is_valid():
-            form.enviar_email()
-            messages.success(request, 'E-mail enviado com sucesso')
-            form = ContatoForms()
-        else:
-            messages.error(request, 'Ocorreu um erro ao enviar o e-mail')
-
-    context = {
-        'form': form
-    }
-    return render(request, 'contato.html', context)
+        context = {
+            'form': form
+        }
+        return render(request, 'contato.html', context)
+    else:
+        return redirect('index')
 
 
 def produto(request, pk):
@@ -48,20 +50,23 @@ def produto(request, pk):
 
 
 def cadastro(request):
-    if str(request.method) == 'POST':
-        form = ClienteModelForms(request.POST or None)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Dados imprimidos com sucesso')
-            form = ClienteModelForms()
+    if str(request.user) != 'AnonymousUser':
+        if str(request.method) == 'POST':
+            form = ClienteModelForms(request.POST or None)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Dados imprimidos com sucesso')
+                form = ClienteModelForms()
+            else:
+                messages.error(request, 'Ocorreu um erro com o formulário')
         else:
-            messages.error(request, 'Ocorreu um erro com o formulário')
+            form = ClienteModelForms()
+        context = {
+            'form': form
+        }
+        return render(request, 'cadastro.html', context)
     else:
-        form = ClienteModelForms()
-    context = {
-        'form': form
-    }
-    return render(request, 'cadastro.html', context)
+        return redirect('index')
 
 
 def cliente(request):
