@@ -4,7 +4,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Cadastro</title>
+    <title>Cadastro de Produtos</title>
     {% bootstrap_css %}
     <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
 </head>
@@ -19,7 +19,8 @@
           <div class="navbar-nav">
               <a class="nav-link" href="{% url 'cliente' %}">Cliente</a>
               <a class="nav-link" href="{% url 'contato' %}">Contato</a>
-              <a class="nav-link" href="{% url 'cadastro' %}">Cadastro</a>
+              <a class="nav-link" href="{% url 'cadastrocliente' %}">Cadastro de Clientes</a>
+              <a class="nav-link" href="{% url 'cadastroproduto' %}">Cadastro de Produto</a>
           </div>
         </div>
       </div>
@@ -27,9 +28,9 @@
     <div class="container mt-4 ">
     </div>
         <div class="container mt-4">
-            <h1>Formulário para cadastro de clientes</h1>
+            <h1>Formulário para cadastro de produtos</h1>
             {% bootstrap_messages %}
-            <form action="{% url 'cadastro' %}" method="post" class="form mt-3" autocomplete="off">
+            <form action="{% url 'cadastroproduto' %}"method="post" class="form mt-3" autocomplete="off">
                 {% csrf_token %}
                 {% bootstrap_form form%}
                 {% buttons %}

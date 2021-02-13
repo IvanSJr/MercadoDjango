@@ -4,7 +4,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Erro no Servidor</title>
+    <title>Cadastro</title>
     {% bootstrap_css %}
     <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
 </head>
@@ -20,14 +20,26 @@
               <a class="nav-link" href="{% url 'cliente' %}">Cliente</a>
               <a class="nav-link" href="{% url 'contato' %}">Contato</a>
               <a class="nav-link" href="{% url 'cadastrocliente' %}">Cadastro de Clientes</a>
+              <a class="nav-link" href="{% url 'cadastroproduto' %}">Cadastro de Produto</a>
           </div>
         </div>
       </div>
     </nav>
-    <div class="container mt-4">
-        <h1>Erro no servidor</h1>
-        <h2>Erro 500</h2>
+    <div class="container mt-4 ">
     </div>
-    {% bootstrap_javascript jquery='full' %}
+        <div class="container mt-4">
+            <h1>Formulário para cadastro de clientes</h1>
+            {% bootstrap_messages %}
+            <form action="{% url 'cadastrocliente' %}" method="post" class="form mt-3" autocomplete="off">
+                {% csrf_token %}
+                {% bootstrap_form form%}
+                {% buttons %}
+                    <button type="submit" class="btn btn-success">Cadastrar</button>
+                {% endbuttons%}
+            </form>
+        </div>
+
+
+{% bootstrap_javascript jquery='full' %}
 </body>
 </html>

@@ -3,7 +3,7 @@ from main.models import Cliente, Produto
 from django.shortcuts import get_object_or_404, redirect
 from django.http import HttpResponse
 from django.template import loader
-from .forms import ContatoForms, ClienteModelForms
+from .forms import ContatoForms, ClienteModelForms, ProdutoModelForms
 from django.contrib import messages
 
 
@@ -49,7 +49,7 @@ def produto(request, pk):
     return render(request, 'produto.html', context)
 
 
-def cadastro(request):
+def cadastrocliente(request):
     if str(request.user) != 'AnonymousUser':
         if str(request.method) == 'POST':
             form = ClienteModelForms(request.POST or None)
@@ -64,7 +64,27 @@ def cadastro(request):
         context = {
             'form': form
         }
-        return render(request, 'cadastro.html', context)
+        return render(request, 'cadastrocliente.html', context)
+    else:
+        return redirect('index')
+
+
+def cadastroproduto(request):
+    if str(request.user) != 'AnonymousUser':
+        if str(request.method) == 'POST':
+            form = ProdutoModelForms(request.POST or None)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Dados imprimidos com sucesso')
+                form = ProdutoModelForms()
+            else:
+                messages.error(request, 'Ocorreu um erro com o formulário')
+        else:
+            form = ProdutoModelForms()
+        context = {
+            'form': form
+        }
+        return render(request, 'cadastroproduto.html', context)
     else:
         return redirect('index')
 
