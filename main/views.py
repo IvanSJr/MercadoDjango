@@ -5,18 +5,21 @@ from django.http import HttpResponse
 from django.template import loader
 from .forms import ContatoForms, ClienteModelForms, ProdutoModelForms
 from django.contrib import messages
+from django.core.paginator import Paginator
 
 
 def index(request):
-    produto = Produto.objects.all()
-
+    produt = Produto.objects.all()
+    paginator = Paginator(produt, 10)
+    page_num = request.GET.get('page')
+    page_obj = paginator.get_page(page_num)
     if str(request.user) == 'AnonymousUser':
         usuario = 'Anônimo'
     else:
         usuario = f'{str(request.user.first_name)} {str(request.user.last_name)} logado'
     context = {
         'verifica_logado': usuario,
-        'produtos': produto
+        'page_obj': page_obj,
     }
     return render(request, 'index.html', context)
 
@@ -55,7 +58,7 @@ def cadastrocliente(request):
             form = ClienteModelForms(request.POST or None)
             if form.is_valid():
                 form.save()
-                messages.success(request, 'Dados imprimidos com sucesso')
+                messages.success(request, 'Dados cadastrados com sucesso')
                 form = ClienteModelForms()
             else:
                 messages.error(request, 'Ocorreu um erro com o formulário')
@@ -75,7 +78,7 @@ def cadastroproduto(request):
             form = ProdutoModelForms(request.POST or None)
             if form.is_valid():
                 form.save()
-                messages.success(request, 'Dados imprimidos com sucesso')
+                messages.success(request, 'Dados cadastrados com sucesso')
                 form = ProdutoModelForms()
             else:
                 messages.error(request, 'Ocorreu um erro com o formulário')
@@ -90,14 +93,17 @@ def cadastroproduto(request):
 
 
 def cliente(request):
-    cliente = Cliente.objects.all()
+    client = Cliente.objects.all()
+    paginator = Paginator(client, 10)
+    page_num = request.GET.get('page')
+    page_obj = paginator.get_page(page_num)
     if str(request.user) == 'AnonymousUser':
         usuario = 'Anônimo'
     else:
         usuario = f'{str(request.user.first_name)} {str(request.user.last_name)} logado'
     context = {
         'verifica_logado': usuario,
-        'clientes': cliente
+        'page_obj': page_obj,
     }
     return render(request, 'cliente.html', context)
 

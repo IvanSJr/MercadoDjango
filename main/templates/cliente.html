@@ -37,7 +37,7 @@
                 <th scope="col">Data de Criação</th>
             </thead>
             <tbody>
-            {%for cliente in clientes%}
+            {%for cliente in page_obj%}
                 <tr>
                     <td>{{cliente.id}}</td>
                     <td>{{cliente.nome}} {{cliente.sobrenome}}</td>
@@ -50,6 +50,20 @@
     </div>
     <div class="container" align="left">
         <h4>Usuario: {{ verifica_logado }}</h4>
+    </div>
+    <div class="pagination">
+        <nav>
+            <ul class="pagination justify-content-end">
+                {% if page_obj.has_previous %}
+                    <li class="page-item"><a class="page-link"  href="?page=1">&laquo; Primeiro</a></li>
+                    <li class="page-item"><a class="page-link"  href="?page={{ page_obj.previous_page_number }}">Anterior</a></li>
+                {% endif %}
+                {% if page_obj.has_next %}
+                    <li class="page-item"><a class="page-link"  href="?page={{ page_obj.next_page_number }}">Proximo</a></li>
+                    <li class="page-item"><a class="page-link"  href="?page={{ page_obj.paginator.num_pages }}">Último &raquo;</a></li>
+                {% endif %}
+            </ul>
+        </nav>
     </div>
     {% bootstrap_javascript jquery='full' %}
 </body>
